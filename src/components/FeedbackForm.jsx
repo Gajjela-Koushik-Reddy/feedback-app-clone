@@ -7,7 +7,7 @@ import Button from "./shared/Button";
 const FeedbackForm = ({handleAdd}) => {
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(false);
 
 //   const rating = (rating) => {
