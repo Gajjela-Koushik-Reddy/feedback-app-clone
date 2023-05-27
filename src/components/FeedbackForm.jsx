@@ -3,16 +3,16 @@ import { useState } from "react";
 import Card from "./shared/Card";
 import RatingSelect from "./RatingSelect";
 import Button from "./shared/Button";
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
 
-const FeedbackForm = ({handleAdd}) => {
+const FeedbackForm = ({ handleAdd }) => {
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(10);
-  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
-//   const rating = (rating) => {
-    // console.log(rating)
-//   };
+  const { addFeedback } = useContext(FeedbackContext);
 
   const handleChange = (event) => {
     if (text === "") {
@@ -31,22 +31,28 @@ const FeedbackForm = ({handleAdd}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    handleAdd({
-        text,
-        rating,
-    })
+    addFeedback({
+      text,
+      rating,
+    });
+
+    // after submitting make the form go to default
+    setText("");
+    setRating(10);
+    setBtnDisabled(true);
   };
 
   return (
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you like to rate your experience?</h2>
-        <RatingSelect select={(rating) => setRating(rating)}/>
+        <RatingSelect select={(rating) => setRating(rating)} />
         <div className="input-group">
           <input
             type="text"
             placeholder="Write a Review"
             onChange={handleChange}
+            value={text}
           />
           <Button type="submit" isDisabled={btnDisabled}>
             Submit
