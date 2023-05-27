@@ -6,7 +6,7 @@ import Button from "./shared/Button";
 import { useContext } from "react";
 import FeedbackContext from "../context/FeedbackContext";
 
-const FeedbackForm = ({ handleAdd }) => {
+const FeedbackForm = () => {
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(10);
@@ -46,7 +46,7 @@ const FeedbackForm = ({ handleAdd }) => {
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you like to rate your experience?</h2>
-        <RatingSelect select={(rating) => setRating(rating)} />
+        <RatingSelect select={(rating) => setRating(rating)} selected={rating} />
         <div className="input-group">
           <input
             type="text"
